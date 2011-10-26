@@ -3,7 +3,7 @@ require 'test/test_helper'
 #
 # TODO split class
 #
-class SitemapGeneratorTest < Test::Unit::TestCase 
+class SitemapGeneratorTest < Test::Unit::TestCase
 
 =begin
   context "Plugin" do

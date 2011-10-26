@@ -1,5 +1,5 @@
 RAILS_GEM_VERSION = '>= 2.3.2' unless defined? RAILS_GEM_VERSION
- 
+
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
@@ -11,4 +11,4 @@ Rails::Initializer.run do |config|
     :secret => 'bc825b3c6d62183601b6f8aa8bcb83dc'
   }
 end
- 
+

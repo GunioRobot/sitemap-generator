@@ -12,7 +12,7 @@ end
 
 # Load the Rails environment
 ENV['RAILS_ENV'] = 'test'
- 
+
 RAILS_ROOT = File.dirname(__FILE__) + '/rails_app'
 
 require "#{RAILS_ROOT}/config/environment.rb"

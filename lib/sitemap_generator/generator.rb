@@ -13,11 +13,11 @@ module SitemapGenerator
     def find_models
       models = []
       model_path = File.join(RAILS_ROOT, 'app', 'models', '/')
-      
+
       # Find all Ruby files
       Dir.glob(File.join(model_path, '**', '*.rb')) do |file|
         next if file =~ /observer.rb/
-        # Path should be relative to RAILS_ROOT 
+        # Path should be relative to RAILS_ROOT
         file.gsub!(model_path, '')
         # Get the class from the filename
         model = file.split('/').map{ |f| f.gsub('.rb', '').classify }.join('::').constantize
@@ -38,8 +38,8 @@ module SitemapGenerator
         self.find_models.each do |model|
           # Default options
           options = {
-            :limit      => Options.limit, 
-            :priority   => Options.priority, 
+            :limit      => Options.limit,
+            :priority   => Options.priority,
             :change_frequency => Options.change_frequency
           }
           options = options.merge(model.sitemap_options)
@@ -72,7 +72,7 @@ module SitemapGenerator
       find_options[:order] = options[:order] if options.has_key?(:order)
       find_options[:limit] = options[:limit] if options.has_key?(:limit)
 
-      # This is where we create the sitemap. 
+      # This is where we create the sitemap.
       # Find and add model instances to the sitemap
       # TODO paginate if we have millions of rows
       model.all(find_options).each do |o|
@@ -82,11 +82,11 @@ module SitemapGenerator
 
     def generate(&block)
 
-      File.open(@filename, "w") do |file|  
-        xml = Builder::XmlMarkup.new(:target => file, :indent => 2)  
+      File.open(@filename, "w") do |file|
+        xml = Builder::XmlMarkup.new(:target => file, :indent => 2)
         xml.instruct! 'xml-stylesheet', {:href=>'sitemap.xsl', :type=>'text/xsl'}
 
-        xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9", "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xsi:schemaLocation" => "http://www.google.com/schemas/sitemap/0.84 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" do  
+        xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9", "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xsi:schemaLocation" => "http://www.google.com/schemas/sitemap/0.84 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" do
           block.call(Sitemap.new(xml))
         end
       end
@@ -104,7 +104,7 @@ module SitemapGenerator
 
     def changed?
       # NOTE Digest would be better, but is not efficient with large sitemaps
-      @old_size != @new_size 
+      @old_size != @new_size
     end
 
     def valid?
@@ -112,7 +112,7 @@ module SitemapGenerator
       # TODO 2. Sitemap should be valid XML
       # TODO 3. Sitemap should be no more than 10 MB
       # TODO 4. Sitemap should contain no more than 1000 files
-      
+
       true
     end
 
@@ -126,14 +126,14 @@ module SitemapGenerator
         "http://webmaster.live.com/ping.aspx?siteMap=http://#{Options.domain}/sitemap.xml" ].each do |url|
         open(url) do |f|
           if f.status[0] == "200"
-            puts "Sitemap successfully submitted to #{url}"      
+            puts "Sitemap successfully submitted to #{url}"
           else
             puts "Failed to submit sitemap to #{url}"
           end
         end
       end
     end
-      
+
     class << self
       def run
         Generator.new.find_models_and_generate
@@ -143,6 +143,6 @@ module SitemapGenerator
         Generator.new.generate(&block)
       end
     end
-    
+
   end
 end

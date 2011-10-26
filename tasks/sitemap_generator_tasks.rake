@@ -7,8 +7,8 @@ namespace :sitemap do
     require(File.join(RAILS_ROOT, 'config', 'environment'))
 
     # Finds models and generates the sitemap
-    SitemapGenerator::Generator.run 
-    
+    SitemapGenerator::Generator.run
+
     # You can also generate a sitemap 'manually' like this:
 =begin
     SitemapGenerator::Generator.generate 'config' do |host, data|

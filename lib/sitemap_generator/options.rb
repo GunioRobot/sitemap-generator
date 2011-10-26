@@ -28,7 +28,7 @@ module SitemapGenerator
         def options
           @@options ||= load_options
         end
-        
+
         def load_options
           yaml = YAML::load(File.read(CONFIG_FILE))
           raise "Looks like your configuration file '#{CONFIG_FILE}' is empty" if !yaml

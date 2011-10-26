@@ -1,6 +1,6 @@
 #
 # Fake vendor/plugins/sitemap_generator
-# 
+#
 require 'lib/sitemap_generator'
 require 'lib/sitemap_generator/options'
 require 'lib/sitemap_generator/generator'

@@ -4,7 +4,7 @@ class All < ActiveRecord::Migration
       t.string :name
     end
   end
- 
+
   def self.down
     drop_table :posts
   end
